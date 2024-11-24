@@ -16,9 +16,9 @@ import { useState } from "react";
 import UnauthPage from "./pages/unauth-page";
 
 function App() {
-  const [authentication, setAuthentication] = useState(true);
+  const [authentication, setAuthentication] = useState(false);
   const [user, setUser] = useState({
-    role: "user",
+    role: "admin",
   });
 
   return (
