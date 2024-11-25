@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 dotenv.config();
 app.use(cookieParser());
-
+const authRoutes = require("./routes/auth/auth-routes.js");
 app.use(express.json());
 app.use(
   cors({
@@ -26,10 +26,11 @@ app.use(
 app.get("/", (req, res) => {
   res.send("Hello");
 });
+app.use("/api/auth", authRoutes);
 
 async function startServer() {
   try {
-    await mongoose.connect(process.env.conectionstring);
+    await mongoose.connect(process.env.CONNECTION_STRING);
     console.log("The server is connected to the database");
     app.listen(process.env.PORT, () => {
       console.log(`The Server is running on ${process.env.PORT}`);
