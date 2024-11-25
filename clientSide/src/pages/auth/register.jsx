@@ -7,7 +7,7 @@ import { registerUser } from "@/store/auth-slice/index.js";
 import { useToast } from "@/components/ui/use-toast";
 
 const initialState = {
-  userName: "",
+  username: "",
   email: "",
   password: "",
 };
