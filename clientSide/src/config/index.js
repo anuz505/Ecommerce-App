@@ -1,27 +1,11 @@
-export const RegisterFormControls = [
+export const registerFormControls = [
   {
-    name: "username",
-    label: "Username",
-    placeholder: "Enter your username",
+    name: "userName",
+    label: "User Name",
+    placeholder: "Enter your user name",
     componentType: "input",
     type: "text",
   },
-  {
-    name: "email",
-    label: "Email",
-    placeholder: "Enter your Email",
-    componentType: "input",
-    type: "text",
-  },
-  {
-    name: "password",
-    label: "Password",
-    placeholder: "Enter your password",
-    componentType: "input",
-    type: "password",
-  },
-];
-export const loginFormControls = [
   {
     name: "email",
     label: "Email",
@@ -37,3 +21,4 @@ export const loginFormControls = [
     type: "password",
   },
 ];
+export const loginFormControls = [];

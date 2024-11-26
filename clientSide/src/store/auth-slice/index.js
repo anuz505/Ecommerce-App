@@ -3,9 +3,10 @@ import axios from "axios";
 
 const initialState = {
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
   user: null,
 };
+
 export const registerUser = createAsyncThunk(
   "/auth/register",
 
@@ -35,13 +36,13 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuthenticated = true;
-        state.user = action.payload.user;
+        state.user = null;
+        state.isAuthenticated = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.isAuthenticated = false;
         state.user = null;
+        state.isAuthenticated = false;
       });
   },
 });
