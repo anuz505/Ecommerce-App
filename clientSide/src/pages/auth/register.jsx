@@ -18,24 +18,22 @@ function AuthRegister() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
-    dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.success) {
-        toast({
-          title: data?.payload?.message,
-        });
-        navigate("/auth/login");
-      } else {
-        toast({
-          title: data?.payload?.message,
-          variant: "destructive",
-        });
-      }
-    });
-  }
 
-  console.log(formData);
+    try {
+      const result = await dispatch(registerUser(formData)).unwrap();
+      toast({
+        title: result.message,
+      });
+      navigate("/auth/login");
+    } catch (error) {
+      toast({
+        title: error.message || "Registration failed",
+        variant: "destructive",
+      });
+    }
+  }
 
   return (
     <div className="mx-auto w-full max-w-md space-y-6">

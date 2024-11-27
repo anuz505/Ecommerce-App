@@ -2,13 +2,15 @@ import CommonForm from "@/components/common/Form";
 import { loginFormControls } from "@/config";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 const initialState = {
   email: "",
   password: "",
 };
 function LoginAuth() {
   const [formData, setFormData] = useState(initialState);
-
+  const dispatch = useDispatch();
   function onsubmit(event) {
     event.preventDefault();
   }
