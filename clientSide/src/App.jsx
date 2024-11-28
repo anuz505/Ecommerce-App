@@ -13,14 +13,31 @@ import ShoppingCheckout from "./pages/shopping-view/checkout";
 import ShoppingHome from "./pages/shopping-view/home";
 import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { checkAuth } from "./store/auth-slice";
 
 function App() {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
-
+  const { user, isAuthenticated, isLoading } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [isAuthenticated, dispatch]);
+  if (isLoading) return <div>Loading</div>;
   return (
     <>
       <Routes>
+        <Route
+          path="/"
+          element={
+            <CheckAuth
+              isAuthenticated={isAuthenticated}
+              user={user}
+            ></CheckAuth>
+          }
+        />
         <Route
           path="/auth"
           element={

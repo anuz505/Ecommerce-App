@@ -21,17 +21,16 @@ function LoginAuth() {
     event.preventDefault();
     try {
       const result = await dispatch(loginUser(formData)).unwrap();
-      toast({
-        title: result.message,
-      });
       if (result.success) {
-        navigate("/");
+        toast({
+          title: result.message,
+        });
+        navigate("/shop/home");
       } else {
         toast({
           title: result.message,
           variant: "destructive",
         });
-        navigate("/auth/login");
       }
     } catch (error) {
       toast({
