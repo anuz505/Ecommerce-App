@@ -12,14 +12,11 @@ import ShoppingListing from "./pages/shopping-view/listing";
 import ShoppingCheckout from "./pages/shopping-view/checkout";
 import ShoppingHome from "./pages/shopping-view/home";
 import CheckAuth from "./components/common/check-auth";
-import { useState } from "react";
 import UnauthPage from "./pages/unauth-page";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [authentication, setAuthentication] = useState(false);
-  const [user, setUser] = useState({
-    role: "admin",
-  });
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -27,7 +24,7 @@ function App() {
         <Route
           path="/auth"
           element={
-            <CheckAuth isAuthenticated={authentication} user={user}>
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
               <AuthLayout />
             </CheckAuth>
           }
@@ -38,7 +35,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <CheckAuth isAuthenticated={authentication} user={user}>
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
               <AdminLayout />
             </CheckAuth>
           }
@@ -49,7 +46,7 @@ function App() {
         <Route
           path="/shop"
           element={
-            <CheckAuth isAuthenticated={authentication} user={user}>
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
               <ShoppingLayout />
             </CheckAuth>
           }

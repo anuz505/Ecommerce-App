@@ -3,6 +3,9 @@ import { loginFormControls } from "@/config";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useToast } from "@/components/ui/use-toast";
+import { loginUser } from "@/store/auth-slice";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -11,8 +14,31 @@ const initialState = {
 function LoginAuth() {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
-  function onsubmit(event) {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  async function onsubmit(event) {
     event.preventDefault();
+    try {
+      const result = await dispatch(loginUser(formData)).unwrap();
+      toast({
+        title: result.message,
+      });
+      if (result.success) {
+        navigate("/");
+      } else {
+        toast({
+          title: result.message,
+          variant: "destructive",
+        });
+        navigate("/auth/login");
+      }
+    } catch (error) {
+      toast({
+        title: error.message || "Login failed",
+        variant: "destructive",
+      });
+    }
   }
   return (
     <div className="mx-auto w-full max-w-md space-y-6">
