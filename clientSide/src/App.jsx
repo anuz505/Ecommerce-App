@@ -5,6 +5,7 @@ import RegisterAuth from "./pages/auth/register.jsx";
 import AdminDashboard from "./pages/admin-view/dashboard";
 import AdminLayout from "./components/admin-view/layout";
 import AdminProducts from "./pages/admin-view/products";
+import AdminOrders from "./pages/admin-view/orders";
 import ShoppingLayout from "./components/shopping-view/layout";
 import NotFound from "./pages/not-found/index";
 import ShoppingAccount from "./pages/shopping-view/account";
@@ -60,6 +61,7 @@ function App() {
         >
           <Route path="dashboard" element={<AdminDashboard />}></Route>
           <Route path="products" element={<AdminProducts />}></Route>
+          <Route path="orders" element={<AdminOrders />}></Route>
         </Route>
         <Route
           path="/shop"
