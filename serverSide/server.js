@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 dotenv.config();
 app.use(cookieParser());
 const authRoutes = require("./routes/auth/auth-routes.js");
+const adminProductsRoutes = require("./routes/admin/product-routes.js");
 app.use(express.json());
 app.use(
   cors({
@@ -27,7 +28,7 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 app.use("/api/auth", authRoutes);
-
+app.use("/api/admin/products", adminProductsRoutes);
 async function startServer() {
   try {
     await mongoose.connect(process.env.CONNECTION_STRING);

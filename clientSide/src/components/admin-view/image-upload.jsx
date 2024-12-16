@@ -3,12 +3,14 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { FileIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
-
+import axios from "axios";
+import { useEffect } from "react";
 function ProductImageUpload({
   imageFile,
   setImageFile,
   uploadedImageUrl,
   setUploadedImageUrl,
+  setImageLoadingState,
 }) {
   const inputRef = useRef(null);
   function handleImageFileChange(event) {
@@ -31,6 +33,24 @@ function ProductImageUpload({
       inputRef.current.value = null;
     }
   }
+  async function uploadImageToCloudinary() {
+    setImageLoadingState(true);
+
+    const data = new FormData();
+    data.append("my-file", imageFile);
+    const response = await axios.post(
+      "http://localhost:5000/api/admin/products/image-upload",
+      data
+    );
+    console.log(response);
+    if (response?.data?.success) {
+      setUploadedImageUrl(response.data.result.url);
+      setImageLoadingState(false);
+    }
+  }
+  useEffect(() => {
+    if (imageFile !== null) uploadImageToCloudinary();
+  }, [imageFile]);
   return (
     <div className="w-full max-w-md mx-auto mt-4">
       <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>
